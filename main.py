@@ -8,7 +8,13 @@ from openai import OpenAI
 
 app = FastAPI(title="FVA Backend")
 
-
+@app.get("/debug-env")
+def debug_env():
+    return {
+        "key_present": bool(
+            os.environ.get("OPENAI_API_KEY", "").strip()
+        )
+    }
 def get_client():
     key = os.getenv("OPENAI_API_KEY")
     if not key:
